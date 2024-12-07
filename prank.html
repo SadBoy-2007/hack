@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Breach Detected!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #0f0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #ff0000;
+            animation: glitch-text 2s infinite;
+            text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000;
+        }
+
+        @keyframes glitch-text {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-3px, -3px); }
+            40% { transform: translate(3px, 3px); }
+            60% { transform: translate(-1px, 1px); }
+            80% { transform: translate(1px, -1px); }
+        }
+
+        .terminal {
+            width: 80%;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #0f0;
+            height: 300px;
+            padding: 15px;
+            overflow: auto;
+            margin: 20px auto;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        .loading-bar {
+            width: 80%;
+            height: 20px;
+            background-color: #333;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-bar div {
+            width: 0;
+            height: 100%;
+            background-color: #0f0;
+            animation: loading 5s linear forwards;
+        }
+
+        @keyframes loading {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        .bsod {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #001f3f;
+            color: white;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            z-index: 3;
+        }
+
+        .bsod h1 {
+            font-size: 3em;
+            color: #fff;
+        }
+
+        .bsod p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        /* Background Animation */
+        .background-code {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .background-code div {
+            position: absolute;
+            color: rgba(0, 255, 0, 0.2);
+            animation: float-code 10s infinite linear;
+            font-size: 12px;
+        }
+
+        @keyframes float-code {
+            from { top: -100%; }
+            to { top: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>System Breach Detected!</h1>
+        <div id="terminal" class="terminal"></div>
+        <div class="loading-bar">
+            <div></div>
+        </div>
+    </div>
+
+    <div id="bsod" class="bsod">
+        <h1>😱 SYSTEM FAILURE!</h1>
+        <p>Your system encountered a critical error and will now restart.</p>
+        <p>Just kidding! You’ve been pranked. 🎉</p>
+    </div>
+
+    <div class="background-code">
+        <!-- Random moving code effect -->
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal');
+        const bsod = document.getElementById('bsod');
+        const loadingBar = document.querySelector('.loading-bar div');
+
+        // Terminal commands
+        const commands = [
+            "Initializing system...",
+            "Connecting to secure servers...",
+            "Bypassing encryption protocols...",
+            "Downloading sensitive data...",
+            "Deleting system logs...",
+            "Activating camera access...",
+            "Oops! Major error detected!"
+        ];
+
+        // Type terminal commands
+        function typeCommands() {
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i < commands.length) {
+                    terminal.innerHTML += `<span>${commands[i]}</span><br>`;
+                    terminal.scrollTop = terminal.scrollHeight;
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    loadingBar.style.animationPlayState = "paused";
+                    triggerBSOD();
+                }
+            }, 2000);
+        }
+
+        // Trigger fake BSOD
+        function triggerBSOD() {
+            setTimeout(() => {
+                bsod.style.display = "flex";
+            }, 3000);
+        }
+
+        // Start typing commands
+        typeCommands();
+
+        // Create floating code effect
+        const backgroundCode = document.querySelector('.background-code');
+        for (let i = 0; i < 100; i++) {
+            const div = document.createElement('div');
+            div.style.left = `${Math.random() * 100}%`;
+            div.style.animationDuration = `${5 + Math.random() * 10}s`;
+            div.innerHTML = Array(20)
+                .fill(0)
+                .map(() => String.fromCharCode(48 + Math.random() * 74))
+                .join('');
+            backgroundCode.appendChild(div);
+        }
+    </script>
+</body>
+</html>
